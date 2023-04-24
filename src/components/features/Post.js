@@ -10,7 +10,7 @@ const Post = props => {
   //const postData = useSelector(state => getPostById(state, postId));
 
   return (
-    <Col className="py-4 col-4 col-md-4">
+    <Col className="py-4 col-4 col-md-4 ">
       <Card>
         <Card.Body >
           <Card.Title>{props.title}</Card.Title>

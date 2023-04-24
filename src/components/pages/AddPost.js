@@ -1,7 +1,11 @@
+import PostForm from "../features/PostFormAdd";
+
 const AddPost = () => {
     return (
       <div>
-        <h1>AddPost</h1>
+        <p>AddPost</p>
+        <p className="text-center" >AddPost</p>
+        <PostForm />
       </div>
     );
   };
