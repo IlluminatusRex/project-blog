@@ -25,9 +25,9 @@ const SinglePost = props => {
   if(!postData) return <Navigate to="/" />
     return (
       <div>
-        <div className="d-flex justify-content-between">
+        <div className="d-sm-flex justify-content-between d-grid gap-2 col-12">
           <h2>{postData.title}</h2>
-          <div>
+          <div className="">
             <Link key={props.id} to={"/post/edit/" + id}>
               <Button variant="outline-info m-1">Edit</Button>
             </Link>
