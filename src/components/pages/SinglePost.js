@@ -27,11 +27,11 @@ const SinglePost = props => {
       <div>
         <div className="d-sm-flex justify-content-between d-grid gap-2 col-12">
           <h2>{postData.title}</h2>
-          <div className="">
+          <div className="d-sm-flex d-grid gap-sm-2 pb-5 pb-sm-3 pt-3 pt-sm-2 ">
             <Link key={props.id} to={"/post/edit/" + id}>
-              <Button variant="outline-info m-1">Edit</Button>
+              <Button variant="outline-info m-1" className="col-12 col-sm-auto">Edit</Button>
             </Link>
-            <Button onClick={handleShow} variant="outline-danger m-1">Delete</Button>
+            <Button onClick={handleShow} variant="outline-danger m-1" className="col-12 col-sm-auto">Delete</Button>
           </div>
         </div>
         <p><b>Author: </b>{postData.author}
