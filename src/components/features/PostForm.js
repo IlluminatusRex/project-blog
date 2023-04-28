@@ -1,5 +1,9 @@
 import { Form, Button } from "react-bootstrap";
-import { useState } from "react";
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const PostForm = ({ action, actionText, ...props }) => {
     const [title, setTitle] = useState(props.title || '');
@@ -12,7 +16,7 @@ const PostForm = ({ action, actionText, ...props }) => {
     e.preventDefault();
     action({ title, author, publishedDate, shortDescription, content });
   };
-
+ 
   
   return (
     <div style={{ width: '70%' }}>
@@ -27,7 +31,7 @@ const PostForm = ({ action, actionText, ...props }) => {
         </Form.Group>
         <Form.Group className="mb-4">
           <Form.Label>Published date</Form.Label>
-          <Form.Control value={publishedDate} onChange={e => setPublishedDate(e.target.value)} />
+          <DatePicker selected={publishedDate} onChange={(date) => setPublishedDate(date)} />
         </Form.Group>
         <Form.Group className="mb-4">
           <Form.Label>Short description</Form.Label>
@@ -35,7 +39,7 @@ const PostForm = ({ action, actionText, ...props }) => {
         </Form.Group>
         <Form.Group className="mb-4">
           <Form.Label>Content of the post</Form.Label>
-          <Form.Control value={content} onChange={e => setContent(e.target.value)} />
+          <ReactQuill as="textarea" theme="snow" value={content} onChange={setContent} />
         </Form.Group>
         <Button variant="primary" type="submit">
           {actionText}

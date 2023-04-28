@@ -1,8 +1,9 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostById, removePost } from "../../redux/postRedux";
-import { Card, Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
+import { dateToStr } from "../../utils/dateToStr";
 
 const SinglePost = props => {
 
@@ -34,9 +35,10 @@ const SinglePost = props => {
             <Button onClick={handleShow} variant="outline-danger m-1" className="col-12 col-sm-auto">Delete</Button>
           </div>
         </div>
-        <p><b>Author: </b>{postData.author}
-        <br/><b>Published: </b>{postData.publishedDate}</p>
-        <p>{postData.shortDescription}</p>
+        <p /><b>Author: </b>{postData.author}
+        <br/><b>Published: </b>{dateToStr(postData.publishedDate)}
+        <p />
+        <p dangerouslySetInnerHTML={{ __html: postData.content }} />
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
