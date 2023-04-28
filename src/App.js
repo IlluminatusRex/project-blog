@@ -8,6 +8,8 @@ import NotFound from './components/pages/NotFound';
 import Header from './components/views/Header';
 import Footer from './components/views/Footer';
 import { Container } from 'react-bootstrap';
+import Categories from './components/pages/Categories';
+import SingleCategory from './components/pages/SingleCategory'
 
 const App = () => {
   return (
@@ -16,10 +18,12 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/categories" element={<Categories />} />
         <Route path="/about" element={<About />} />
         <Route path="/post/:id" element={<SinglePost />} />
         <Route path="/post/add" element={<AddPost />} />
         <Route path="/post/edit/:id" element={<EditPost />} />
+        <Route path="/categories/:category" element={<SingleCategory />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

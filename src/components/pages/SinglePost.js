@@ -1,7 +1,8 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostById, removePost } from "../../redux/postRedux";
 import { Button, Modal } from "react-bootstrap";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { dateToStr } from "../../utils/dateToStr";
 
@@ -26,18 +27,19 @@ const SinglePost = props => {
   if(!postData) return <Navigate to="/" />
     return (
       <div>
-        <div className="d-sm-flex justify-content-between d-grid gap-2 col-12">
+        <div className="d-flex justify-content-between">
           <h2>{postData.title}</h2>
-          <div className="d-sm-flex d-grid gap-sm-2 pb-5 pb-sm-3 pt-3 pt-sm-2 ">
+          <div>
             <Link key={props.id} to={"/post/edit/" + id}>
-              <Button variant="outline-info m-1" className="col-12 col-sm-auto">Edit</Button>
+              <Button variant="outline-info m-1">Edit post</Button>
             </Link>
-            <Button onClick={handleShow} variant="outline-danger m-1" className="col-12 col-sm-auto">Delete</Button>
+            <Button onClick={handleShow} variant="outline-danger m-1">Delete</Button>
           </div>
         </div>
-        <p /><b>Author: </b>{postData.author}
+        <p/><b>Author: </b>{postData.author}
         <br/><b>Published: </b>{dateToStr(postData.publishedDate)}
-        <p />
+        <br/><b>Category: </b>{postData.category}
+        <p/>{postData.shortDescription}
         <p dangerouslySetInnerHTML={{ __html: postData.content }} />
 
         <Modal show={show} onHide={handleClose}>
@@ -61,4 +63,4 @@ const SinglePost = props => {
     );
 };
 
-  export default SinglePost;
+export default SinglePost;

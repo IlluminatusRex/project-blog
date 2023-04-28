@@ -17,7 +17,8 @@ const Post = props => {
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>
             <p><b>Author: </b>{props.author}
-            <br/><b>Published: </b>{dateToStr(props.publishedDate)}</p>
+            <br/><b>Published: </b>{dateToStr(props.publishedDate)}<br/>
+            <b>Category: </b>{props.category}</p>
             <p>{props.shortDescription}</p>
           </Card.Text>
           <Link key={props.id} to={"/post/" + props.id}>

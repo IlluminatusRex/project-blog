@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { getAllPosts } from "../../redux/postRedux";
-import Post from "./Post";
+import Post from "../pages/Post";
 import { Row } from "react-bootstrap";
 
 
