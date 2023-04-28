@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useForm } from "react-hook-form";
 
 const PostForm = ({ action, actionText, ...props }) => {
     const [title, setTitle] = useState(props.title || '');
@@ -11,35 +12,64 @@ const PostForm = ({ action, actionText, ...props }) => {
     const [author, setAuthor ] = useState(props.author || '');
     const [publishedDate, setPublishedDate ] = useState(props.publishedDate || '');
     const [content, setContent] = useState(props.content || '');
+    const [contentError, setContentError] = useState(false);
+    const [dateError, setDateError] = useState(false);
 
   const handleSubmit = e => {
-    e.preventDefault();
-    action({ title, author, publishedDate, shortDescription, content });
+    setContentError(!content || content == "<p><br></p>")
+    setDateError(!publishedDate)
+    if(content && publishedDate && content != "<p><br></p>"){
+      action({ title, author, publishedDate, shortDescription, content });
+      console.log("Content",content);
+    }
   };
- 
+
+  const { register, handleSubmit: validate, formState: { errors } } = useForm();
   
   return (
     <div style={{ width: '70%' }}>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={validate(handleSubmit)}>
         <Form.Group className="mb-4">
+          <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Title</Form.Label>
-          <Form.Control value={title} onChange={e => setTitle(e.target.value)} />
+          <Form.Control
+              {...register("title", { required: true, minLength: 3 })}
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              type="text" placeholder="Enter title"
+            />
+            {errors.title && <small className="d-block form-text text-danger mt-2">Title is too short (min is 3)</small>}
+          </Form.Group>
         </Form.Group>
         <Form.Group className="mb-4">
           <Form.Label>Author</Form.Label>
-          <Form.Control value={author} onChange={e => setAuthor(e.target.value)} />
+          <Form.Control
+              {...register("author", { required: true, minLength: 3 })}
+              value={author}
+              onChange={e => setAuthor(e.target.value)}
+              type="text" placeholder="Enter Author"
+            />
+            {errors.author && <small className="d-block form-text text-danger mt-2">Title is too short (min is 3)</small>}
         </Form.Group>
         <Form.Group className="mb-4">
           <Form.Label>Published date</Form.Label>
           <DatePicker selected={publishedDate} onChange={(date) => setPublishedDate(date)} />
+          {dateError && <small className="d-block form-text text-danger mt-2">Published date can't be empty</small>}
         </Form.Group>
         <Form.Group className="mb-4">
           <Form.Label>Short description</Form.Label>
-          <Form.Control value={shortDescription} onChange={e => setShortDescription(e.target.value)} />
+          <Form.Control
+              {...register("shortDescription", { required: true, minLength: 20 })}
+              value={shortDescription}
+              onChange={e => setShortDescription(e.target.value)}
+              type="text" placeholder="Enter short description"
+            />
+            {errors.shortDescription && <small className="d-block form-text text-danger mt-2">Title is too short (min is 20)</small>}
         </Form.Group>
         <Form.Group className="mb-4">
           <Form.Label>Content of the post</Form.Label>
-          <ReactQuill as="textarea" theme="snow" value={content} onChange={setContent} />
+          <ReactQuill as="textarea" value={content} onChange={setContent} />
+          {contentError && <small className="d-block form-text text-danger mt-1">Content can't be empty</small>}
         </Form.Group>
         <Button variant="primary" type="submit">
           {actionText}
