@@ -9,7 +9,7 @@ const SingleCategory = () => {
 	
   const { category } = useParams();
   const categoriesData = useSelector(state => getFilteredCategories(state, category));
-	console.log(category);
+	console.log(categoriesData);
 
 	if(!categoriesData) return <Navigate to="/categories/" />
 		return (
